@@ -1,0 +1,80 @@
+@charset "UTF-8";
+.header { 
+    background-color: #6EB2FF;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    margin: bottom 0px; 
+}
+body {
+    background-color: #FFFADE;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer {
+    background-color:#6EB2FF; /* 色を指定してください */
+    color: #fff; /* テキストの色を指定してください */
+    padding: 10px; /* 必要に応じて余白を調整してください */
+    text-align: center; /* テキストを中央に配置する場合は指定してください */
+}
+
+.msr_box1 {
+    width: 232px;
+  }
+  .msr_box1 a{
+    border:1px solid #999999;
+    box-sizing: border-box;
+    color: #333333;
+    display:block;
+  }
+  .msr_box1 a *{
+    transition: 0.2s opacity ease-in-out;
+    -o-transition: 0.2s opacity ease-in-out;
+    -moz-transition: 0.2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+  }
+  .msr_box1 p {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 8px;
+  }
+  .msr_box1 .ttl {
+    font-size: 18px;
+    line-height: 1.6;
+    padding: 8px 8px 0;
+  }
+  .msr_box1 a:hover *{
+    opacity: 0.8;
+  }
+
+.msr_box2 {
+    width: 232px;
+}
+.msr_box2 a{
+    border:1px solid #999999;
+    box-sizing: border-box;
+    color: #333333;
+    display:block;
+}
+.msr_box2 a *{
+    transition: 0.2s opacity ease-in-out;
+    -o-transition: 0.2s opacity ease-in-out;
+    -moz-transition: 0.2s opacity ease-in-out;
+    -webkit-transition: 0.2s opacity ease-in-out;
+}
+.msr_box2 p {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 8px;
+}
+.msr_box2 .ttl {
+    font-size: 18px;
+    line-height: 1.6;
+    padding: 8px 8px 0;
+}
+.msr_box2 a:hover *{
+    opacity: 0.8;
+}
+
