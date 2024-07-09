@@ -1,45 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ストップウォッチ</title>
     <style>
-        #stopwatch {
-            font-size: 2em;
-            text-align: center;
-            margin: 50px;
-        }
+      #stopwatch {
+        font-size: 2em;
+        text-align: center;
+        margin: 50px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1 id="logo">
+          <a href="https://main.d3nanlhaikh1x2.amplifyapp.com"
+            >便利ツールサイト</a
+          >
+        </h1>
+        <div id="header-right">
+          <span class="large"></span>
+          <a href="https://github.com/c0b221340"> 町田が運営中！！</a>
+        </div>
+      </header>
 
-<div id="stopwatch">0:00:00.0</div>
-<button onclick="startStopwatch()">Start</button>
-<button onclick="stopStopwatch()">Stop</button>
-<button onclick="resetStopwatch()">Reset</button>
+      <!--開閉ブロック-->
+      <div id="menubar">
+        <nav>
+          <ul>
+            <li>
+              <a href="https://main.d3nanlhaikh1x2.amplifyapp.com">ホーム</a>
+            </li>
+            <li>
+              <a href="">ツール一覧</a>
+              <ul>
+                <li>
+                  <a
+                    href="https://main.d3nanlhaikh1x2.amplifyapp.com/count.html"
+                    >文字数カウント</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://main.d3nanlhaikh1x2.amplifyapp.com/trans.html"
+                    >年号変換</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="http://www034.pbcloud.cs.priv.teu.ac.jp/~c0a22132/index.html"
+                    >パスワード生成</a
+                  >
+                </li>
+                <li>
+                  <a href="https://main.d3nanlhaikh1x2.amplifyapp.com/stop.html"
+                    >ストップウォッチ</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="http://www034.pbcloud.cs.priv.teu.ac.jp/~c0b22054/index.html"
+                    >時計</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                href="https://www.amazon.jp/hz/wishlist/ls/3KCKQ1S5VXLLC?ref_=wl_share"
+                >ご支援</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
 
-<script>
-    let timer;
-    let milliseconds = 0;
-    let seconds = 0;
-    let minutes = 0;
-    let hours = 0;
-    let isRunning = false;
+    <div id="stopwatch">0:00:00.0</div>
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="stopStopwatch()">Stop</button>
+    <button onclick="resetStopwatch()">Reset</button>
 
-    function startStopwatch() {
+    <script>
+      let timer;
+      let milliseconds = 0;
+      let seconds = 0;
+      let minutes = 0;
+      let hours = 0;
+      let isRunning = false;
+
+      function startStopwatch() {
         if (!isRunning) {
-            timer = setInterval(updateStopwatch, 100);
-            isRunning = true;
+          timer = setInterval(updateStopwatch, 100);
+          isRunning = true;
         }
-    }
+      }
 
-    function stopStopwatch() {
+      function stopStopwatch() {
         clearInterval(timer);
         isRunning = false;
-    }
+      }
 
-    function resetStopwatch() {
+      function resetStopwatch() {
         clearInterval(timer);
         updateStopwatch();
         milliseconds = 0;
@@ -47,34 +111,40 @@
         minutes = 0;
         hours = 0;
         isRunning = false;
-    }
+      }
 
-    function updateStopwatch() {
+      function updateStopwatch() {
         milliseconds++;
 
         if (milliseconds === 10) {
-            milliseconds = 0;
-            seconds++;
+          milliseconds = 0;
+          seconds++;
 
-            if (seconds === 60) {
-                seconds = 0;
-                minutes++;
+          if (seconds === 60) {
+            seconds = 0;
+            minutes++;
 
-                if (minutes === 60) {
-                    minutes = 0;
-                    hours++;
-                }
+            if (minutes === 60) {
+              minutes = 0;
+              hours++;
             }
+          }
         }
 
-        const timeString = padNumber(hours) + ':' + padNumber(minutes) + ':' + padNumber(seconds) + '.' + milliseconds;
-        document.getElementById('stopwatch').innerText = timeString;
-    }
+        const timeString =
+          padNumber(hours) +
+          ":" +
+          padNumber(minutes) +
+          ":" +
+          padNumber(seconds) +
+          "." +
+          milliseconds;
+        document.getElementById("stopwatch").innerText = timeString;
+      }
 
-    function padNumber(number) {
-        return (number < 10) ? '0' + number : number;
-    }
-</script>
-
-</body>
+      function padNumber(number) {
+        return number < 10 ? "0" + number : number;
+      }
+    </script>
+  </body>
 </html>
