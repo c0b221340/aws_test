@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ストップウォッチ</title>
+    <style>
+        #stopwatch {
+            font-size: 2em;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="stopwatch">0:00:00.0</div>
+<button onclick="startStopwatch()">Start</button>
+<button onclick="stopStopwatch()">Stop</button>
+<button onclick="resetStopwatch()">Reset</button>
+
+<script>
+    let timer;
+    let milliseconds = 0;
+    let seconds = 0;
+    let minutes = 0;
+    let hours = 0;
+    let isRunning = false;
+
+    function startStopwatch() {
+        if (!isRunning) {
+            timer = setInterval(updateStopwatch, 100);
+            isRunning = true;
+        }
+    }
+
+    function stopStopwatch() {
+        clearInterval(timer);
+        isRunning = false;
+    }
+
+    function resetStopwatch() {
+        clearInterval(timer);
+        updateStopwatch();
+        milliseconds = 0;
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        isRunning = false;
+    }
+
+    function updateStopwatch() {
+        milliseconds++;
+
+        if (milliseconds === 10) {
+            milliseconds = 0;
+            seconds++;
+
+            if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+
+                if (minutes === 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+        }
+
+        const timeString = padNumber(hours) + ':' + padNumber(minutes) + ':' + padNumber(seconds) + '.' + milliseconds;
+        document.getElementById('stopwatch').innerText = timeString;
+    }
+
+    function padNumber(number) {
+        return (number < 10) ? '0' + number : number;
+    }
+</script>
+
+</body>
+</html>
