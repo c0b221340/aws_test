@@ -77,75 +77,148 @@
           </ul>
         </nav>
       </div>
-    </div>
 
-    <div id="stopwatch">0:00:00.0</div>
-    <button onclick="startStopwatch()">Start</button>
-    <button onclick="stopStopwatch()">Stop</button>
-    <button onclick="resetStopwatch()">Reset</button>
+      <div id="contents">
+        <main class="column">
+          <div class="main-area">
+            <h1>ストップウォッチ</h1>
+            <div id="stopwatch">00:00:00.0</div>
+            <button onclick="startStopwatch()">Start</button>
+            <button onclick="stopStopwatch()">Stop</button>
+            <button onclick="resetStopwatch()">Reset</button>
+            <style>
+              #stopwatch {
+                font-size: 4em;
+                text-align: center;
+                margin: 50px;
+              }
+              button {
+                margin: 0 auto;
+                text-align: center;
+                font-size: 1.5em;
+                padding: 10px 20px;
+                background-color: #f8f8f8;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                cursor: pointer;
+              }
+            </style>
+          </div>
+          <div class="sub-area">
+            <img src="images/pi-tan.png" alt="ピータン" class="side-img" />
+          </div>
+          <div class="side-area">
+            <img src="images/pi-tan.png" alt="ピータン" class="side-img" />
+          </div>
+        </main>
+      </div>
 
-    <script>
-      let timer;
-      let milliseconds = 0;
-      let seconds = 0;
-      let minutes = 0;
-      let hours = 0;
-      let isRunning = false;
+      <script>
+        let timer;
+        let milliseconds = 0;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+        let isRunning = false;
 
-      function startStopwatch() {
-        if (!isRunning) {
-          timer = setInterval(updateStopwatch, 100);
-          isRunning = true;
+        function startStopwatch() {
+          if (!isRunning) {
+            timer = setInterval(updateStopwatch, 100);
+            isRunning = true;
+          }
         }
-      }
 
-      function stopStopwatch() {
-        clearInterval(timer);
-        isRunning = false;
-      }
+        function stopStopwatch() {
+          clearInterval(timer);
+          isRunning = false;
+        }
 
-      function resetStopwatch() {
-        clearInterval(timer);
-        updateStopwatch();
-        milliseconds = 0;
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
-        isRunning = false;
-      }
-
-      function updateStopwatch() {
-        milliseconds++;
-
-        if (milliseconds === 10) {
+        function resetStopwatch() {
+          clearInterval(timer);
           milliseconds = 0;
-          seconds++;
+          seconds = 0;
+          minutes = 0;
+          hours = 0;
+          updateStopwatch();
+          isRunning = false;
+        }
 
-          if (seconds === 60) {
-            seconds = 0;
-            minutes++;
+        function updateStopwatch() {
+          const timeString =
+            padNumber(hours) +
+            ":" +
+            padNumber(minutes) +
+            ":" +
+            padNumber(seconds) +
+            "." +
+            milliseconds;
+          document.getElementById("stopwatch").innerText = timeString;
 
-            if (minutes === 60) {
-              minutes = 0;
-              hours++;
+          if (isRunning) {
+            milliseconds += 1;
+
+            if (milliseconds === 10) {
+              milliseconds = 0;
+              seconds += 1;
+
+              if (seconds === 60) {
+                seconds = 0;
+                minutes += 1;
+
+                if (minutes === 60) {
+                  minutes = 0;
+                  hours += 1;
+                }
+              }
             }
           }
         }
 
-        const timeString =
-          padNumber(hours) +
-          ":" +
-          padNumber(minutes) +
-          ":" +
-          padNumber(seconds) +
-          "." +
-          milliseconds;
-        document.getElementById("stopwatch").innerText = timeString;
-      }
+        function padNumber(number) {
+          return number < 10 ? "0" + number : number;
+        }
+      </script>
+      <footer>
+        <small
+          >Copyright&copy; <a href="index.html">便利ツールサイト</a> All Rights
+          Reserved.</small
+        >
+        <span class="pr"
+          ><a href="https://template-party.com/" target="_blank"
+            >《Web Design:Template-Party》</a
+          ></span
+        >
+      </footer>
 
-      function padNumber(number) {
-        return number < 10 ? "0" + number : number;
-      }
-    </script>
+      <!--ページの上部へ戻るボタン-->
+      <div class="pagetop">
+        <a href="#"><i class="fas fa-angle-double-up"></i></a>
+      </div>
+    </div>
+    <!--/#container-->
+
+    <!--開閉ボタン（ハンバーガーアイコン）-->
+    <div id="menubar_hdr">
+      <span> <span></span> </span><span></span><span></span>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--lightbox用jsファイルの読み込み-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/js/lightbox-plus-jquery.min.js"></script>
+
+    <!--スライドショー（slick）-->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/slick.js"></script>
+
+    <!--スライドショー（vegas）-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vegas/2.5.4/vegas.min.js"></script>
+    <script src="js/vegas.js"></script>
+
+    <!--パララックス（inview）-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+    <script src="js/jquery.inview_set.js"></script>
+
+    <!--このテンプレート専用のスクリプト-->
+    <script src="js/main.js"></script>
   </body>
 </html>

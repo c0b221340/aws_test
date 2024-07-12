@@ -2,45 +2,64 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>日付と年号変換</title>
+    <title>パスワード生成</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/style.css" />
     <script>
-      function convertDate() {
-        const inputDate = document.getElementById("inputDate").value;
+      function copyPassword() {
+        const password = document.getElementById("passwordDisplay").value;
+        navigator.clipboard.writeText(password);
+        document.getElementById("result").textContent =
+          "パスワードをコピーしました。";
+      }
 
-        if (!inputDate) {
-          alert("有効な日付を入力してください。");
+      function clearPassword() {
+        document.getElementById("passwordDisplay").value = "";
+        document.getElementById("result").textContent =
+          "パスワードをクリアしました。";
+      }
+
+      function generatePassword() {
+        const length = document.getElementById("length").value;
+        const useNumber = document.getElementById("useNumber").checked;
+        const useBIGAlphabet =
+          document.getElementById("useBIGAlphabet").checked;
+        const useSmallAlphabet =
+          document.getElementById("useSmallAlphabet").checked;
+        const useSymbol = document.getElementById("useSymbol").checked;
+
+        const number = "0123456789";
+        const BIGAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const SmallAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        const symbol = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+
+        let source = "";
+        if (useNumber) source += number;
+        if (useBIGAlphabet) source += BIGAlphabet;
+        if (useSmallAlphabet) source += SmallAlphabet;
+        if (useSymbol) source += symbol;
+        if (source === "") {
+          document.getElementById("result").textContent =
+            "少なくとも1つの文字種を選択してください。";
           return;
         }
 
-        const date = new Date(inputDate);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1; // 月は0-indexedであるため+1
-        const day = date.getDate();
-
-        let era, eraYear;
-
-        if (year > 2018 || (year === 2018 && month >= 5)) {
-          era = "令和";
-          eraYear = year - 2018;
-        } else if (year > 1988 || (year === 1989 && month >= 1 && day >= 8)) {
-          era = "平成";
-          eraYear = year - 1988;
-        } else if (year > 1925 || (year === 1926 && month >= 12 && day >= 25)) {
-          era = "昭和";
-          eraYear = year - 1925;
-        } else if (year > 1911 || (year === 1912 && month >= 7 && day >= 30)) {
-          era = "大正";
-          eraYear = year - 1911;
-        } else {
-          era = "明治";
-          eraYear = year - 1867;
+        let password = "";
+        for (let i = 0; i < length; i++) {
+          password += source[Math.floor(Math.random() * source.length)];
         }
 
-        document.getElementById(
-          "result"
-        ).innerText = `${era}${eraYear}年${month}月${day}日`;
+        document.getElementById("passwordDisplay").value = password;
+        document.getElementById("result").textContent =
+          "パスワードを生成しました。";
+        adjustInputSize(password.length);
+      }
+      function adjustInputSize(length) {
+        const passwordDisplay = document.getElementById("passwordDisplay");
+        const minWidth = 50;
+        const charWidth = 10; // Estimate width per character
+        const newWidth = Math.max(minWidth, length * charWidth);
+        passwordDisplay.style.width = newWidth + "px";
       }
     </script>
     <style>
@@ -123,17 +142,49 @@
         <main class="column">
           <div class="main-area">
             <div class="list">
-              <h1>日付と年号変換</h1>
-
-              <label for="inputDate">
-                <font size="5">日付:</font>
-              </label>
-              <input type="date" id="inputDate" style="font-size: 20px" />
-              <button id="change" onclick="convertDate()">変換</button>
-
-              <p>
-                <font size="6" id="result"></font>
-              </p>
+              <h1>パスワード生成</h1>
+              <label for="length">パスワードの長さ</label>
+              <input
+                type="number"
+                id="length"
+                name="length"
+                min="1"
+                max="100"
+                value="8"
+              />
+              <p class="note">※1～100の範囲で指定してください。</p>
+              <br />
+              <p>使用する文字種</p>
+              <label for="useNumber">数字を使用する</label>
+              <input type="checkbox" id="useNumber" name="useNumber" checked />
+              <br />
+              <label for="useBIGAlphabet">大文字を使用する</label>
+              <input
+                type="checkbox"
+                id="useBIGAlphabet"
+                name="useBIGAlphabet"
+                checked
+              />
+              <br />
+              <label for="useSmallAlphabet">小文字を使用する</label>
+              <input
+                type="checkbox"
+                id="useSmallAlphabet"
+                name="useSmallAlphabet"
+                checked
+              />
+              <br />
+              <label for="useSymbol">記号を使用する</label>
+              <input type="checkbox" id="useSymbol" name="useSymbol" checked />
+            </div>
+            <button type="button" onclick="generatePassword()">
+              パスワード生成
+            </button>
+            <button type="button" onclick="copyPassword()">コピー</button>
+            <button type="button" onclick="clearPassword()">クリア</button>
+            <div class="result">
+              <input type="text" id="passwordDisplay" readonly />
+              <p id="result"></p>
             </div>
           </div>
           <div class="sub-area">
